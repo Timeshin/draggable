@@ -1,15 +1,27 @@
-# 🚀 Welcome to your new awesome project!
+# Draggable element
 
-This project has been created using **webpack-cli**, you can now run
+#### Application: https://timeshin.github.io/Chat-app-FE
+
+### install dependencies
 
 ```
-npm run build
+npm install
 ```
 
+### Run app
+
+```
+npm run start
+```
+
+### Build app
+
+```
+npm run build:dev
+```
 or
 
 ```
-yarn build
+npm run build:prod
 ```
 
-to bundle your application
