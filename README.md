@@ -1,6 +1,6 @@
 # Draggable element
 
-#### Application: https://timeshin.github.io/Chat-app-FE
+#### Application: https://timeshin.github.io/draggable
 
 ### install dependencies
 
