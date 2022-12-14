@@ -1,3 +1,6 @@
+import onMoveHandler from './EventScripts/onMoveHandler'
+import onStartHandler from './EventScripts/onStartHandler'
+
 import './styles/main.css'
 
 const container = document.querySelector('.container')
@@ -9,17 +12,28 @@ let draggableStartDraggingCords = {
   y: 0
 }
 
-draggable.addEventListener('mousedown', ({ offsetX, offsetY }) => {
-  isMouseHolding = true
-  draggableStartDraggingCords = {
-    x: offsetX,
-    y: offsetY
-  }
+draggable.addEventListener('mousedown', (event) => {
+  const { cords } = onStartHandler(event, draggable)
 
-  draggable.classList.add('grabbing')
+  isMouseHolding = true
+  draggableStartDraggingCords = cords
+})
+draggable.addEventListener('touchstart', (event) => {
+  event.preventDefault()
+
+  const { cords } = onStartHandler(event, draggable)
+
+  isMouseHolding = true
+  draggableStartDraggingCords = cords
 })
 
 document.addEventListener('mouseup', () => {
+  draggable.classList.remove('grabbing')
+  isMouseHolding = false
+})
+draggable.addEventListener('touchend', (event) => {
+  event.preventDefault()
+
   draggable.classList.remove('grabbing')
   isMouseHolding = false
 })
@@ -27,61 +41,12 @@ document.addEventListener('mouseup', () => {
 document.addEventListener('mousemove', (event) => {
   if(!isMouseHolding) return
   
-  const { clientX, clientY } = event
-  const xCord = clientX - container.offsetLeft - draggableStartDraggingCords.x
-  const yCord = clientY - container.offsetTop - draggableStartDraggingCords.y
-  const containerHeight = container.clientHeight - draggable.clientHeight
-  const containerWidth = container.clientWidth - draggable.clientWidth
+  onMoveHandler(event, draggable, container, draggableStartDraggingCords)
+})
+draggable.addEventListener('touchmove', (event) => {
+  event.preventDefault()
 
-  if(xCord <= 0 && yCord <= 0) {
-    draggable.style.left = 0
-    draggable.style.top = 0
-    return
-  }
+  if(!isMouseHolding) return
 
-  if(xCord >= containerWidth && yCord >= containerHeight) {
-    draggable.style.left = `${containerWidth}px`
-    draggable.style.top = `${containerHeight}px`
-    return
-  }
-
-  if(xCord >= containerWidth && yCord <= 0) {
-    draggable.style.left = `${containerWidth}px`
-    draggable.style.top = 0
-    return
-  }
-
-  if(yCord >= containerHeight && xCord <= 0) {
-    draggable.style.left = 0
-    draggable.style.top = `${containerHeight}px`
-    return
-  }
-
-  if(xCord >= containerWidth && yCord <= containerHeight) {
-    draggable.style.left = `${containerWidth}px`
-    draggable.style.top = `${yCord}px`
-    return
-  }
-
-
-  if(yCord >= containerHeight && xCord <= containerWidth) {
-    draggable.style.left = `${xCord}px`
-    draggable.style.top = `${containerHeight}px`
-    return
-  }
-
-  if(xCord <= 0 && yCord >= 0) {
-    draggable.style.left = `${0}px`
-    draggable.style.top = `${yCord}px`
-    return
-  }
-
-  if(yCord <= 0 && xCord >= 0) {
-    draggable.style.top = `${0}px`
-    draggable.style.left = `${xCord}px`
-    return
-  }
-
-  draggable.style.left = `${xCord}px`
-  draggable.style.top = `${yCord}px`
+  onMoveHandler(event, draggable, container, draggableStartDraggingCords)
 })
