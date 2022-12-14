@@ -1,6 +1,7 @@
 {
   "name": "my-webpack-project",
   "version": "1.0.0",
+  "homepage": "https://timeshin.github.io/draggable",
   "description": "My webpack project",
   "main": "index.js",
   "private": true,
@@ -9,7 +10,9 @@
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "predeploy": "npm run build:prod",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -20,13 +23,13 @@
   "bugs": {
     "url": "https://github.com/Timeshin/draggable/issues"
   },
-  "homepage": "https://github.com/Timeshin/draggable#readme",
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "@webpack-cli/generators": "^3.0.1",
     "babel-loader": "^9.1.0",
     "css-loader": "^6.7.2",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "^2.8.1",
     "style-loader": "^3.3.1",
