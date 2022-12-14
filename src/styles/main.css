@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 80vw;
+  height: 80vh;
+  position: relative;
+  border: 2px solid #000;
+}
+
+.draggable {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  background: rgb(101, 101, 101);
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
